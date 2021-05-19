@@ -12,7 +12,11 @@ public class display {
     Timer timer;
     boolean timerOn = false;
     double perSecond;
-    int timerSpeed;
+    int timerSpeed,price,totalPrice;
+    int tempeBlessingCounter = 1, tempeTempleCounter = 1, tempeGodCounter = 1;
+    int clickByTheGodCounter = 1;
+    int tempeBlessingPrice = 5, tempeTemplePrice = 10, tempeGodPrice = 20;
+    int clickByTheGodPrice = 2;
 
     aksi tempeAksi = new aksi();
 
@@ -59,6 +63,7 @@ public class display {
         perSecLabel.setForeground(Color.white);
         perSecLabel.setFont(font2);
         counterPanel.add(perSecLabel);
+
 
         JPanel upgrade = new JPanel();
         upgrade.setBounds(550, 120, 200,200);
@@ -138,16 +143,46 @@ public class display {
                     counterLabel.setText(tempeCounter + " Tempe");
                 break;
                 case "tempeBlessing":
-                    perSecond = perSecond + 0.1;
-                    timerUpdate();
-                    break;
+                    if (tempeCounter >= tempeBlessingPrice) {
+                        tempeCounter = tempeCounter-tempeBlessingPrice;
+                        tempeBlessingPrice=tempeBlessingPrice+5;
+                        tempeBlessingCounter++;
+                        
+                        perSecond = perSecond + 0.1;
+                        timerUpdate();
+                    }
+                    counterLabel.setText(tempeCounter + " Tempe");
+                break;
                 case "tempeTemple":
-                    perSecond = perSecond + 0.5;
-                    timerUpdate();
-                    break;
+                    if (tempeCounter >= tempeTemplePrice) {
+                        tempeCounter = tempeCounter-tempeTemplePrice;
+                        tempeTemplePrice=tempeTemplePrice+10;
+                        tempeTempleCounter++;
+                        
+                        perSecond = perSecond + 0.5;
+                        timerUpdate();
+                    }
+                counterLabel.setText(tempeCounter + " Tempe");
+                break;
                 case "tempeGod":
-                    perSecond = perSecond + 1.0;
-                    timerUpdate();
+                    if (tempeCounter >= tempeGodPrice) {
+                        tempeCounter = tempeCounter-tempeGodPrice;
+                        tempeGodPrice=tempeGodPrice+15;
+                        tempeGodCounter++;
+                        
+                        perSecond = perSecond + 1.0;
+                        timerUpdate();
+                    }
+                    counterLabel.setText(tempeCounter + " Tempe");
+                break;
+                case "clickByTheGod":
+                    if (tempeCounter >= clickByTheGodPrice) {
+                        clickByTheGodCounter++;
+                        tempeCounter = tempeCounter-clickByTheGodPrice;
+                        tempeIncrement++;
+                        clickByTheGodPrice = clickByTheGodPrice + 2;
+                    }
+                    
                     break;
             }
       
