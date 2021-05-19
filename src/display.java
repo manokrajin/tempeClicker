@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class display {
 
-    JLabel counterLabel, perSecLabel;
+    JLabel counterLabel, perSecLabel, judulLabel;
     JButton tempeBlessing,tempeTemple,tempeGod,clickByTheGod;
     int tempeCounter=0,tempeIncrement=1;
     Font font1, font2;
@@ -16,6 +16,7 @@ public class display {
     int tempeBlessingCounter = 1, tempeTempleCounter = 1, tempeGodCounter = 1;
     int clickByTheGodCounter = 1;
     int tempeBlessingPrice = 5, tempeTemplePrice = 10, tempeGodPrice = 20;
+    int lvlBlessing =0, lvlTemple = 0, lvlGod = 0, lvlClickByGod = 0;
     int clickByTheGodPrice = 2;
 
     aksi tempeAksi = new aksi();
@@ -34,9 +35,19 @@ public class display {
         window.setLayout(null);
 
         JPanel tempePanel = new JPanel();
-        tempePanel.setBounds(280, 220, 200, 200);
+        tempePanel.setBounds(280, 200, 200, 200);
         tempePanel.setBackground(Color.black);
         window.add(tempePanel);
+
+        JPanel judulPanel = new JPanel();
+        judulPanel.setBounds(280, 20, 215, 60);
+        judulPanel.setBackground(Color.black);
+        window.add(judulPanel);
+
+        judulLabel = new JLabel(" Tempe Clicker");
+        judulLabel.setForeground(Color.white);
+        judulLabel.setFont(font1);
+        judulPanel.add(judulLabel);
 
         ImageIcon tempe = new ImageIcon(getClass().getClassLoader().getResource("tempeUtama.png"));
         JButton tempeButton = new JButton();
@@ -49,7 +60,7 @@ public class display {
         tempePanel.add(tempeButton);
 
         JPanel counterPanel = new JPanel();
-        counterPanel.setBounds(100, 100, 200, 100);
+        counterPanel.setBounds(50, 40, 200, 100);
         counterPanel.setBackground(Color.black);
         counterPanel.setLayout(new GridLayout(2,1));
         window.add(counterPanel);
@@ -71,7 +82,7 @@ public class display {
         upgrade.setLayout(new GridLayout(4,1));
         window.add(upgrade);
 
-        tempeBlessing = new JButton("Tempe Blessing");
+        tempeBlessing = new JButton("Tempe Blessing" );
         tempeBlessing.setFont(font2);
         tempeBlessing.setFocusPainted(false);
         tempeBlessing.addActionListener(tempeAksi);
@@ -92,7 +103,7 @@ public class display {
         tempeGod.setActionCommand("tempeGod");
         upgrade.add(tempeGod);
 
-        clickByTheGod = new JButton("Click By The God");
+        clickByTheGod = new JButton("God Clicker");
         clickByTheGod.setFont(font2);
         clickByTheGod.setFocusPainted(false);
         clickByTheGod.addActionListener(tempeAksi);
@@ -147,7 +158,8 @@ public class display {
                         tempeCounter = tempeCounter-tempeBlessingPrice;
                         tempeBlessingPrice=tempeBlessingPrice+5;
                         tempeBlessingCounter++;
-                        
+                        lvlBlessing++;
+                        tempeBlessing.setText("Tempe Blessing lv "+ lvlBlessing);
                         perSecond = perSecond + 0.1;
                         timerUpdate();
                     }
@@ -158,7 +170,8 @@ public class display {
                         tempeCounter = tempeCounter-tempeTemplePrice;
                         tempeTemplePrice=tempeTemplePrice+10;
                         tempeTempleCounter++;
-                        
+                        lvlTemple++;
+                        tempeTemple.setText("Tempe Temple lv "+ lvlTemple);
                         perSecond = perSecond + 0.5;
                         timerUpdate();
                     }
@@ -169,7 +182,8 @@ public class display {
                         tempeCounter = tempeCounter-tempeGodPrice;
                         tempeGodPrice=tempeGodPrice+15;
                         tempeGodCounter++;
-                        
+                        lvlGod++;
+                        tempeGod.setText("Tempe God lv "+ lvlGod);
                         perSecond = perSecond + 1.0;
                         timerUpdate();
                     }
@@ -177,9 +191,11 @@ public class display {
                 break;
                 case "clickByTheGod":
                     if (tempeCounter >= clickByTheGodPrice) {
-                        clickByTheGodCounter++;
                         tempeCounter = tempeCounter-clickByTheGodPrice;
                         tempeIncrement++;
+                        clickByTheGodCounter++;
+                        lvlClickByGod++;
+                        clickByTheGod.setText("God Clicker lv "+ lvlClickByGod);
                         clickByTheGodPrice = clickByTheGodPrice + 2;
                     }
                     
