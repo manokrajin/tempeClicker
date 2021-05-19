@@ -6,8 +6,13 @@ import javax.swing.*;
 public class display {
 
     JLabel counterLabel, perSecLabel;
-    int tempeCounter=0;
+    JButton tempeBlessing,tempeTemple,tempeGod,clickByTheGod;
+    int tempeCounter=0,tempeIncrement=1;
     Font font1, font2;
+    Timer timer;
+    boolean timerOn = false;
+    double perSecond;
+    int timerSpeed;
 
     aksi tempeAksi = new aksi();
 
@@ -25,7 +30,7 @@ public class display {
         window.setLayout(null);
 
         JPanel tempePanel = new JPanel();
-        tempePanel.setBounds(100, 200, 200, 200);
+        tempePanel.setBounds(280, 220, 200, 200);
         tempePanel.setBackground(Color.black);
         window.add(tempePanel);
 
@@ -36,6 +41,7 @@ public class display {
         tempeButton.setBorder(null);
         tempeButton.setIcon(tempe);
         tempeButton.addActionListener(tempeAksi);
+        tempeButton.setActionCommand("tempeAdd");
         tempePanel.add(tempeButton);
 
         JPanel counterPanel = new JPanel();
@@ -54,14 +60,97 @@ public class display {
         perSecLabel.setFont(font2);
         counterPanel.add(perSecLabel);
 
+        JPanel upgrade = new JPanel();
+        upgrade.setBounds(550, 120, 200,200);
+        upgrade.setBackground(Color.blue);
+        upgrade.setLayout(new GridLayout(4,1));
+        window.add(upgrade);
+
+        tempeBlessing = new JButton("Tempe Blessing");
+        tempeBlessing.setFont(font2);
+        tempeBlessing.setFocusPainted(false);
+        tempeBlessing.addActionListener(tempeAksi);
+        tempeBlessing.setActionCommand("tempeBlessing");
+        upgrade.add(tempeBlessing);
+
+        tempeTemple = new JButton("Tempe Temple");
+        tempeTemple.setFont(font2);
+        tempeTemple.setFocusPainted(false);
+        tempeTemple.addActionListener(tempeAksi);
+        tempeTemple.setActionCommand("tempeTemple");
+        upgrade.add(tempeTemple);
+        
+        tempeGod = new JButton("Tempe God");
+        tempeGod.setFont(font2);
+        tempeGod.setFocusPainted(false);
+        tempeGod.addActionListener(tempeAksi);
+        tempeGod.setActionCommand("tempeGod");
+        upgrade.add(tempeGod);
+
+        clickByTheGod = new JButton("Click By The God");
+        clickByTheGod.setFont(font2);
+        clickByTheGod.setFocusPainted(false);
+        clickByTheGod.addActionListener(tempeAksi);
+        clickByTheGod.setActionCommand("clickByTheGod");
+        upgrade.add(clickByTheGod);
+
+
         window.setVisible(true);
     }
-    public class aksi implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
 
-            tempeCounter++;
-            counterLabel.setText(tempeCounter + " Tempe");
+    public void setTimer(){
+        timer = new Timer(timerSpeed, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                
+                tempeCounter++;
+                counterLabel.setText(tempeCounter + " Tempe");
+            }
+        });
+    }
+
+    public void timerUpdate() {
+        if(timerOn=false){
+            timerOn = true;
+        }
+        else if(timerOn=true){
+            timerOn = false;
+        }
+
+        double speed = 1/perSecond*1000;
+        timerSpeed = (int)Math.round(speed);
+        String s = String.format("%.2f", perSecond);
+        perSecLabel.setText("per second : " + s);
+
+        setTimer();
+        timer.start();
+    }
+    public class aksi implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            
+            String action = event.getActionCommand();
+            
+            switch (action) {
+                case "tempeAdd":
+                    tempeCounter = tempeCounter + tempeIncrement;
+                    counterLabel.setText(tempeCounter + " Tempe");
+                break;
+                case "tempeBlessing":
+                    perSecond = perSecond + 0.1;
+                    timerUpdate();
+                    break;
+                case "tempeTemple":
+                    perSecond = perSecond + 0.5;
+                    timerUpdate();
+                    break;
+                case "tempeGod":
+                    perSecond = perSecond + 1.0;
+                    timerUpdate();
+                    break;
+            }
+      
         }
     }
 
