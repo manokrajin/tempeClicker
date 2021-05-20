@@ -5,14 +5,14 @@ import javax.swing.*;
 
 public class display {
 
-    JLabel counterLabel, perSecLabel, judulLabel;
+    JLabel counterLabel, perSecLabel, judulLabel, cursorLabel, wallpaper;
     JButton tempeBlessing,tempeTemple,tempeGod,clickByTheGod;
     int tempeCounter=0,tempeIncrement=1;
-    Font font1, font2;
+    Font font1, font2, font3;
     Timer timer;
     boolean timerOn = false;
     double perSecond;
-    int timerSpeed,price,totalPrice;
+    int timerSpeed;
     int tempeBlessingCounter = 1, tempeTempleCounter = 1, tempeGodCounter = 1;
     int clickByTheGodCounter = 1;
     int tempeBlessingPrice = 5, tempeTemplePrice = 10, tempeGodPrice = 20;
@@ -23,10 +23,12 @@ public class display {
 
     public void createFont(){
         font1 = new Font("Comic Sans MS", Font.PLAIN, 32);
-        font2 = new Font("Comic Sans MS", Font.PLAIN, 18);
+        font2 = new Font("Comic Sans MS", Font.PLAIN, 16);
+        font3 = new Font("Comic Sans MS", Font.PLAIN, 8);
     }
 
     public void createUI(){
+
 
         JFrame window = new JFrame();
         window.setSize(800, 600);
@@ -34,14 +36,19 @@ public class display {
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
 
+        //JPanel wallpaperPanel = new JPanel();
+        //wallpaperPanel.setBounds(0,0,800,600);
+        //wallpaperPanel.setBackground(new Color(0,0,0,0));
+        //window.add(wallpaperPanel);
+
         JPanel tempePanel = new JPanel();
         tempePanel.setBounds(280, 200, 200, 200);
-        tempePanel.setBackground(Color.black);
+        tempePanel.setBackground(new Color(0,0,0,0));
         window.add(tempePanel);
 
         JPanel judulPanel = new JPanel();
-        judulPanel.setBounds(280, 20, 215, 60);
-        judulPanel.setBackground(Color.black);
+        judulPanel.setBounds(280, 20, 215, 100);
+        judulPanel.setBackground(new Color(0,0,0,0));
         window.add(judulPanel);
 
         judulLabel = new JLabel(" Tempe Clicker");
@@ -49,7 +56,10 @@ public class display {
         judulLabel.setFont(font1);
         judulPanel.add(judulLabel);
 
-        ImageIcon tempe = new ImageIcon(getClass().getClassLoader().getResource("tempeUtama.png"));
+        //JLabel wallpaper = new JLabel(new ImageIcon (getClass().getClassLoader().getResource("jiso.jpg")));
+        //wallpaperPanel.add(wallpaper);
+
+        ImageIcon tempe = new ImageIcon(getClass().getClassLoader().getResource("tempeee png 8 bit.png"));
         JButton tempeButton = new JButton();
         tempeButton.setBackground(Color.black);
         tempeButton.setFocusPainted(false);
@@ -62,7 +72,7 @@ public class display {
         JPanel counterPanel = new JPanel();
         counterPanel.setBounds(50, 40, 200, 100);
         counterPanel.setBackground(Color.black);
-        counterPanel.setLayout(new GridLayout(2,1));
+        counterPanel.setLayout(new GridLayout(3,1));
         window.add(counterPanel);
 
         counterLabel = new JLabel(tempeCounter + " Tempe ");
@@ -70,19 +80,24 @@ public class display {
         counterLabel.setFont(font1);
         counterPanel.add(counterLabel);
 
-        perSecLabel = new JLabel();
+        perSecLabel = new JLabel("Tempe/s : 0");
         perSecLabel.setForeground(Color.white);
         perSecLabel.setFont(font2);
         counterPanel.add(perSecLabel);
+
+        cursorLabel = new JLabel("Power : "+clickByTheGodCounter+"/click");
+        cursorLabel.setForeground(Color.WHITE);
+        cursorLabel.setFont(font2);
+        counterPanel.add(cursorLabel);
 
 
         JPanel upgrade = new JPanel();
         upgrade.setBounds(550, 120, 200,200);
         upgrade.setBackground(Color.blue);
-        upgrade.setLayout(new GridLayout(4,1));
+        upgrade.setLayout(new GridLayout(4,2));
         window.add(upgrade);
 
-        tempeBlessing = new JButton("Tempe Blessing" );
+        tempeBlessing = new JButton("Tempe Blessing");
         tempeBlessing.setFont(font2);
         tempeBlessing.setFocusPainted(false);
         tempeBlessing.addActionListener(tempeAksi);
@@ -136,7 +151,7 @@ public class display {
         double speed = 1/perSecond*1000;
         timerSpeed = (int)Math.round(speed);
         String s = String.format("%.2f", perSecond);
-        perSecLabel.setText("per second : " + s);
+        perSecLabel.setText("Tempe/s : " + s);
 
         setTimer();
         timer.start();
@@ -196,8 +211,10 @@ public class display {
                         clickByTheGodCounter++;
                         lvlClickByGod++;
                         clickByTheGod.setText("God Clicker lv "+ lvlClickByGod);
-                        clickByTheGodPrice = clickByTheGodPrice + 2;
+                        cursorLabel.setText("Power : "+clickByTheGodCounter+"/click");
+                        clickByTheGodPrice = clickByTheGodPrice*clickByTheGodPrice;
                     }
+                    counterLabel.setText(tempeCounter + " Tempe");
                     
                     break;
             }
