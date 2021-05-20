@@ -5,10 +5,11 @@ import javax.swing.*;
 
 public class display {
 
-    JLabel counterLabel, perSecLabel, judulLabel, cursorLabel, wallpaper;
+    JLabel counterLabel, perSecLabel, judulLabel, cursorLabel;
+    JLabel displayPriceTempeBlessing, displayPriceTempeTemple, displayPriceTempeGod, displayClickByGodPrice, displayLvlClickByGod;
     JButton tempeBlessing,tempeTemple,tempeGod,clickByTheGod;
     int tempeCounter=0,tempeIncrement=1;
-    Font font1, font2, font3;
+    Font font1, font2;
     Timer timer;
     boolean timerOn = false;
     double perSecond;
@@ -24,7 +25,6 @@ public class display {
     public void createFont(){
         font1 = new Font("Comic Sans MS", Font.PLAIN, 32);
         font2 = new Font("Comic Sans MS", Font.PLAIN, 16);
-        font3 = new Font("Comic Sans MS", Font.PLAIN, 8);
     }
 
     public void createUI(){
@@ -36,13 +36,8 @@ public class display {
         window.getContentPane().setBackground(Color.black);
         window.setLayout(null);
 
-        //JPanel wallpaperPanel = new JPanel();
-        //wallpaperPanel.setBounds(0,0,800,600);
-        //wallpaperPanel.setBackground(new Color(0,0,0,0));
-        //window.add(wallpaperPanel);
-
         JPanel tempePanel = new JPanel();
-        tempePanel.setBounds(280, 200, 200, 200);
+        tempePanel.setBounds(280, 150, 200, 200);
         tempePanel.setBackground(new Color(0,0,0,0));
         window.add(tempePanel);
 
@@ -55,9 +50,6 @@ public class display {
         judulLabel.setForeground(Color.white);
         judulLabel.setFont(font1);
         judulPanel.add(judulLabel);
-
-        //JLabel wallpaper = new JLabel(new ImageIcon (getClass().getClassLoader().getResource("jiso.jpg")));
-        //wallpaperPanel.add(wallpaper);
 
         ImageIcon tempe = new ImageIcon(getClass().getClassLoader().getResource("tempeee png 8 bit.png"));
         JButton tempeButton = new JButton();
@@ -90,41 +82,67 @@ public class display {
         cursorLabel.setFont(font2);
         counterPanel.add(cursorLabel);
 
-
-        JPanel upgrade = new JPanel();
-        upgrade.setBounds(550, 120, 200,200);
-        upgrade.setBackground(Color.blue);
-        upgrade.setLayout(new GridLayout(4,2));
-        window.add(upgrade);
-
         tempeBlessing = new JButton("Tempe Blessing");
         tempeBlessing.setFont(font2);
         tempeBlessing.setFocusPainted(false);
         tempeBlessing.addActionListener(tempeAksi);
+        tempeBlessing.setBounds(80,400,200,50);
         tempeBlessing.setActionCommand("tempeBlessing");
-        upgrade.add(tempeBlessing);
+        window.add(tempeBlessing);
 
-        tempeTemple = new JButton("Tempe Temple");
+        displayPriceTempeBlessing = new JLabel("[Price] : "+tempeBlessingPrice);
+        displayPriceTempeBlessing.setBounds(80,450,200,50);
+        displayPriceTempeBlessing.setForeground(Color.white);
+        displayPriceTempeBlessing.setFont(font2);
+        window.add(displayPriceTempeBlessing);
+
+        tempeTemple= new JButton("Tempe Temple");
         tempeTemple.setFont(font2);
         tempeTemple.setFocusPainted(false);
         tempeTemple.addActionListener(tempeAksi);
+        tempeTemple.setBounds(280,400,200,50);
         tempeTemple.setActionCommand("tempeTemple");
-        upgrade.add(tempeTemple);
+        window.add(tempeTemple);
+
+        displayPriceTempeTemple = new JLabel("[Price] : "+tempeTemplePrice);
+        displayPriceTempeTemple.setBounds(280,450,200,50);
+        displayPriceTempeTemple.setForeground(Color.white);
+        displayPriceTempeTemple.setFont(font2);
+        window.add(displayPriceTempeTemple);
         
         tempeGod = new JButton("Tempe God");
         tempeGod.setFont(font2);
         tempeGod.setFocusPainted(false);
         tempeGod.addActionListener(tempeAksi);
+        tempeGod.setBounds(480,400,200,50);
         tempeGod.setActionCommand("tempeGod");
-        upgrade.add(tempeGod);
+        window.add(tempeGod);
 
-        clickByTheGod = new JButton("God Clicker");
+        displayPriceTempeGod = new JLabel("[Price] : "+tempeGodPrice);
+        displayPriceTempeGod.setBounds(480,450,200,50);
+        displayPriceTempeGod.setForeground(Color.white);
+        displayPriceTempeGod.setFont(font2);
+        window.add(displayPriceTempeGod);
+
+        clickByTheGod = new JButton(new ImageIcon(getClass().getClassLoader().getResource("godd.png")));
         clickByTheGod.setFont(font2);
         clickByTheGod.setFocusPainted(false);
         clickByTheGod.addActionListener(tempeAksi);
+        clickByTheGod.setBounds(550,150,100,100);
         clickByTheGod.setActionCommand("clickByTheGod");
-        upgrade.add(clickByTheGod);
+        window.add(clickByTheGod);
 
+        displayClickByGodPrice = new JLabel("[Price] : "+clickByTheGodPrice);
+        displayClickByGodPrice.setBounds(550,280,180,50);
+        displayClickByGodPrice.setForeground(Color.white);
+        displayClickByGodPrice.setFont(font2);
+        window.add(displayClickByGodPrice);
+
+        displayLvlClickByGod = new JLabel("[Level] :"+lvlClickByGod);
+        displayLvlClickByGod.setBounds(550,250,180,50);
+        displayLvlClickByGod.setForeground(Color.white);
+        displayLvlClickByGod.setFont(font2);
+        window.add(displayLvlClickByGod);
 
         window.setVisible(true);
     }
@@ -175,6 +193,7 @@ public class display {
                         tempeBlessingCounter++;
                         lvlBlessing++;
                         tempeBlessing.setText("Tempe Blessing lv "+ lvlBlessing);
+                        displayPriceTempeBlessing.setText("[Price] : "+ tempeBlessingPrice);
                         perSecond = perSecond + 0.1;
                         timerUpdate();
                     }
@@ -187,6 +206,7 @@ public class display {
                         tempeTempleCounter++;
                         lvlTemple++;
                         tempeTemple.setText("Tempe Temple lv "+ lvlTemple);
+                        displayPriceTempeTemple.setText("[Price] : "+tempeTemplePrice);
                         perSecond = perSecond + 0.5;
                         timerUpdate();
                     }
@@ -199,6 +219,7 @@ public class display {
                         tempeGodCounter++;
                         lvlGod++;
                         tempeGod.setText("Tempe God lv "+ lvlGod);
+                        displayPriceTempeGod.setText("[Price] : "+tempeGodPrice);
                         perSecond = perSecond + 1.0;
                         timerUpdate();
                     }
@@ -210,9 +231,11 @@ public class display {
                         tempeIncrement++;
                         clickByTheGodCounter++;
                         lvlClickByGod++;
-                        clickByTheGod.setText("God Clicker lv "+ lvlClickByGod);
+                        //clickByTheGod.setText("<html>God<br>Clicker<br>lv</html> "+ lvlClickByGod);
                         cursorLabel.setText("Power : "+clickByTheGodCounter+"/click");
                         clickByTheGodPrice = clickByTheGodPrice*2;
+                        displayClickByGodPrice.setText("[Price] : "+clickByTheGodPrice);
+                        displayLvlClickByGod.setText("[Level] : "+lvlClickByGod);
                     }
                     counterLabel.setText(tempeCounter + " Tempe");
                     
