@@ -212,7 +212,7 @@ public class display {
                         lvlClickByGod++;
                         clickByTheGod.setText("God Clicker lv "+ lvlClickByGod);
                         cursorLabel.setText("Power : "+clickByTheGodCounter+"/click");
-                        clickByTheGodPrice = clickByTheGodPrice*clickByTheGodPrice;
+                        clickByTheGodPrice = clickByTheGodPrice*2;
                     }
                     counterLabel.setText(tempeCounter + " Tempe");
                     
